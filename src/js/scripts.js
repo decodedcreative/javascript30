@@ -219,56 +219,265 @@
 
 //----------------------------------------------------------------------------------//
 
-//--5.0 - Type Ahead ---------------------------------------------------------------//
+//--6.0 - Type Ahead ---------------------------------------------------------------//
 
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+// const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
-const cities = [];
+// const cities = [];
 
-fetch(endpoint)
-  .then(blob => blob.json())
-  .then(data => cities.push(...data));
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => cities.push(...data));
 
-console.log(cities);
+// console.log(cities);
 
-function findMatches(wordToMatch, cities) {
-	return cities.filter(place => {
+// function findMatches(wordToMatch, cities) {
+// 	return cities.filter(place => {
 
-		const regex = new RegExp(wordToMatch, 'gi');
-		return place.city.match(regex) || place.state.match(regex);
+// 		const regex = new RegExp(wordToMatch, 'gi');
+// 		return place.city.match(regex) || place.state.match(regex);
 
-	});
-};
+// 	});
+// };
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+// function numberWithCommas(x) {
+//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// }
 
-function displayMatches() {
-  const matchArray = findMatches(this.value, cities);
-  const html = matchArray.map(place => {
+// function displayMatches() {
+//   const matchArray = findMatches(this.value, cities);
+//   const html = matchArray.map(place => {
 
-  	const regex = new RegExp(this.value, 'gi');
-  	const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-  	const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+//   	const regex = new RegExp(this.value, 'gi');
+//   	const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+//   	const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
 
-    return `
-      <li>
-        <span class="name">${cityName}, ${stateName}</span>
-        <span class="population">${numberWithCommas(place.population)}</span>
-      </li>
-    `;
-  }).join('');
-  suggestions.innerHTML = html;
-}
+//     return `
+//       <li>
+//         <span class="name">${cityName}, ${stateName}</span>
+//         <span class="population">${numberWithCommas(place.population)}</span>
+//       </li>
+//     `;
+//   }).join('');
+//   suggestions.innerHTML = html;
+// }
 
-const searchInput = document.querySelector('.search');
-const suggestions = document.querySelector('.suggestions');
+// const searchInput = document.querySelector('.search');
+// const suggestions = document.querySelector('.suggestions');
 
-searchInput.addEventListener('change', displayMatches);
-searchInput.addEventListener('keyup', displayMatches);
+// searchInput.addEventListener('change', displayMatches);
+// searchInput.addEventListener('keyup', displayMatches);
 
 
 
 //----------------------------------------------------------------------------------//
 
+//--6.0 - Arrays 2------------------------------------------------------------------//
+
+    // const people = [
+    //   { name: 'Wes', year: 1988 },
+    //   { name: 'Kait', year: 1986 },
+    //   { name: 'Irv', year: 1970 },
+    //   { name: 'Lux', year: 2015 }
+    // ];
+    // const comments = [
+    //   { text: 'Love this!', id: 523423 },
+    //   { text: 'Super good', id: 823423 },
+    //   { text: 'You are the best', id: 2039842 },
+    //   { text: 'Ramen is my fav food ever', id: 123523 },
+    //   { text: 'Nice Nice Nice!', id: 542328 }
+    // ];
+    // Some and Every Checks
+    // Array.prototype.some() // is at least one person 19 or older?
+
+    // const isAdult = people.some(function(person){
+
+    // 	const currentDate = (new Date()).getFullYear();
+
+    // 	if ( currentYear - person.year >= 19) {
+    // 		return true;
+    // 	}
+
+    // });
+
+    // const isAdult = people.some(person => (new Date()).getFullYear() - person.year >= 19);
+
+    // console.log(isAdult);
+
+    // const allAdults = people.every(person => (new Date()).getFullYear() - person.year >= 19);
+
+    // console.log(allAdults);
+
+    // Array.prototype.every() // is everyone 19 or older?
+    // Array.prototype.find()
+    // Find is like filter, but instead returns just the one you are looking for
+    // find the comment with the ID of 823423
+
+    // const selectedComment = comments.find(comment => comment.id === 823423);
+
+    // console.log(selectedComment);
+
+    // Array.prototype.findIndex()
+    // Find the comment with this ID
+    // delete the comment with the ID of 823423
+
+    // const commentToDelete = comments.findIndex(comment => comment.id === 823423);
+
+    //comments.splice(commentToDelete, 1)
+
+    // const newComments = [
+    // 	...comments.slice(0, commentToDelete),
+    // 	...comments.slice(commentToDelete + 1)
+    // ];
+
+    // console.table(newComments);
+
+//----------------------------------------------------------------------------------//
+
+
+//--7.0 - Canvas--------------------------------------------------------------------//
+
+	// const canvas = document.querySelector('#draw');
+	// const context = canvas.getContext('2d');
+
+	// canvas.width = window.innerWidth;
+	// canvas.height = window.innerHeight;
+
+	// context.strokeStyle = '#BADA55';
+	// context.lineJoin = 'round';
+	// context.lineCap = 'round';
+	// context.lineWidth = 20;
+
+	// let isDrawing = false;
+	// let lastXPos = 0;
+	// let lastYPos = 0;
+	// let hue = 0;
+
+
+	// const draw = function(e){
+	// 	if(!isDrawing) return;
+	// 	context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+	// 	context.beginPath();
+	// 	context.moveTo(lastXPos, lastYPos);
+	// 	context.lineTo(e.offsetX, e.offsetY);
+	// 	context.stroke();
+
+	// 	[lastXPos, lastYPos] = [e.offsetX, e.offsetY];
+
+	// 	hue++;
+
+	// 	if (hue >= 360){
+	// 		hue = 0;
+	// 	}
+	// };
+
+	// canvas.addEventListener('mousedown', (e) => {
+	//   isDrawing = true;
+	//   [lastXPos, lastYPos] = [e.offsetX, e.offsetY];
+	// });
+	// canvas.addEventListener('mousemove', draw);
+	// canvas.addEventListener('mouseup', () => isDrawing = false);
+	// canvas.addEventListener('mouseout', () => isDrawing = false);
+
+//----------------------------------------------------------------------------------//
+
+//--9.0 - Multi-Select Checkboxes---------------------------------------------------//
+
+// const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+// let lastChecked;
+
+// const handleCheck = function (e) {
+// 	console.log(e);
+
+// 	let inBetween = false;
+
+// 	if (e.shiftKey && this.checked) {
+
+
+// 		checkboxes.forEach(checkbox => {
+// 				console.log(checkbox);
+
+// 			if (checkbox === this || checkbox === lastChecked){
+// 				inBetween = !inBetween;
+// 				console.log("starting to check them in between");
+// 			}
+
+// 			if(inBetween){
+// 				checkbox.checked = true;
+// 			}
+
+// 		});
+// 	}
+
+// 	lastChecked = this;
+// };
+
+// checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
+
+
+//----------------------------------------------------------------------------------//
+
+//--10.0 - Custom Video-------------------------------------------------------------//
+
+	const player = document.querySelector(".player");
+	const video = player.querySelector('.viewer');
+	const progress = player.querySelector('.progress');
+	const progressBar = player.querySelector('.progress__filled');
+	const toggle = player.querySelector('.toggle');
+	const skipButtons = player.querySelectorAll('[data-skip]');
+	const ranges = player.querySelectorAll('.player__slider');
+
+	const togglePlay = function (){
+		const method = video.paused ? 'play' : 'pause';
+
+		video[method]();
+
+	};
+
+	const updateButton = function () {
+		const icon = this.paused ? '►' : '❚ ❚';
+		console.log(icon);
+		toggle.textContent = icon;
+	};
+
+
+	const skip = function () {
+		video.currentTime += parseFloat(this.dataset.skip);
+	};
+
+	const handleRangeUpdate = function () {
+		video[this.name] = this.value;
+	};
+
+	const handleProgress = function () {
+		const percent = (video.currentTime / video.duration) * 100;
+
+		progressBar.style.flexBasis = `${percent}%`;
+	};
+
+	const userClickedSkip = function (e) {
+		const skipTime = (e.offsetX / progress.offsetWidth) * video.duration;
+		video.currentTime = skipTime;
+	};
+
+	video.addEventListener('click', togglePlay);
+	video.addEventListener('play', updateButton);
+	video.addEventListener('pause', updateButton);
+	video.addEventListener('timeupdate', handleProgress);
+
+	toggle.addEventListener('click', togglePlay);
+
+	skipButtons.forEach(button => button.addEventListener('click', skip));
+	ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
+	ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
+
+	let mousedown = false;
+
+	progress.addEventListener('click', userClickedSkip);
+	progress.addEventListener('mousemove', (e) => mousedown && userClickedSkip(e));
+	progress.addEventListener('mousedown', () => mousedown = true);
+	progress.addEventListener('mouseup', () => mousedown = false);
+
+//----------------------------------------------------------------------------------//
