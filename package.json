@@ -4,7 +4,8 @@
   "description": "A collection of front-end assets developed by AIA's Developer Team for use on multiple client projects. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "browser-sync start --server --files '*.css, *.html, *.js'"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,8 @@
     "gulp-sourcemaps": "^2.4.1",
     "gulp-util": "^3.0.8",
     "reflex-grid": "^1.5.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "browser-sync": "^2.12.5"
   },
   "dependencies": {
     "core-js": "^2.4.1"

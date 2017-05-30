@@ -1,62 +1,72 @@
 //--10.0 - Custom Video-------------------------------------------------------------//
 
-	const player = document.querySelector(".player");
-	const video = player.querySelector('.viewer');
-	const progress = player.querySelector('.progress');
-	const progressBar = player.querySelector('.progress__filled');
-	const toggle = player.querySelector('.toggle');
-	const skipButtons = player.querySelectorAll('[data-skip]');
-	const ranges = player.querySelectorAll('.player__slider');
 
-	const togglePlay = function (){
-		const method = video.paused ? 'play' : 'pause';
+export class customVideo {
 
-		video[method]();
+	constructor() {
 
-	};
+		this.player = document.querySelector(".player");
+		this.video = this.player.querySelector('.viewer');
+		this.progress = this.player.querySelector('.progress');
+		this.progressBar = this.player.querySelector('.progress__filled');
+		this.toggle = this.player.querySelector('.toggle');
+		this.skipButtons = this.player.querySelectorAll('[data-skip]');
+		this.ranges = this.player.querySelectorAll('.player__slider');
 
-	const updateButton = function () {
+		this.video.addEventListener('click', this.togglePlay);
+		this.video.addEventListener('play', this.updateButton);
+		this.video.addEventListener('pause', this.updateButton);
+		this.video.addEventListener('timeupdate', this.handleProgress);
+
+		this.toggle.addEventListener('click', this.togglePlay);
+
+		this.skipButtons.forEach(button => button.addEventListener('click', this.skip));
+		this.ranges.forEach(range => range.addEventListener('change', this.handleRangeUpdate));
+		this.ranges.forEach(range => range.addEventListener('mousemove', this.handleRangeUpdate));
+
+		let mousedown = false;
+
+		this.progress.addEventListener('click', this.userClickedSkip);
+		this.progress.addEventListener('mousemove', (e) => mousedown && this.userClickedSkip(e));
+		this.progress.addEventListener('mousedown', () => mousedown = true);
+		this.progress.addEventListener('mouseup', () => mousedown = false);
+
+	}
+
+	togglePlay () {
+		const method = customvideo.video.paused ? 'play' : 'pause';
+		customvideo.video[method]();
+	}
+
+	updateButton () {
 		const icon = this.paused ? '►' : '❚ ❚';
-		console.log(icon);
-		toggle.textContent = icon;
-	};
+		customvideo.toggle.textContent = icon;
+	}
+
+	skip () {
+		customvideo.video.currentTime += parseFloat(this.dataset.skip);
+	}
+
+	handleRangeUpdate () {
+		customvideo.video[this.name] = this.value;
+	}
+
+	handleProgress () {
+		const percent = (customvideo.video.currentTime / customvideo.video.duration) * 100;
+
+		customvideo.progressBar.style.flexBasis = `${percent}%`;
+	}
+
+	userClickedSkip (e) {
+
+		const skipTime = (e.offsetX / customvideo.progress.offsetWidth) * customvideo.video.duration;
+		customvideo.video.currentTime = skipTime;
+
+	}
 
 
-	const skip = function () {
-		video.currentTime += parseFloat(this.dataset.skip);
-	};
+}
 
-	const handleRangeUpdate = function () {
-		video[this.name] = this.value;
-	};
-
-	const handleProgress = function () {
-		const percent = (video.currentTime / video.duration) * 100;
-
-		progressBar.style.flexBasis = `${percent}%`;
-	};
-
-	const userClickedSkip = function (e) {
-		const skipTime = (e.offsetX / progress.offsetWidth) * video.duration;
-		video.currentTime = skipTime;
-	};
-
-	video.addEventListener('click', togglePlay);
-	video.addEventListener('play', updateButton);
-	video.addEventListener('pause', updateButton);
-	video.addEventListener('timeupdate', handleProgress);
-
-	toggle.addEventListener('click', togglePlay);
-
-	skipButtons.forEach(button => button.addEventListener('click', skip));
-	ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
-	ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
-
-	let mousedown = false;
-
-	progress.addEventListener('click', userClickedSkip);
-	progress.addEventListener('mousemove', (e) => mousedown && userClickedSkip(e));
-	progress.addEventListener('mousedown', () => mousedown = true);
-	progress.addEventListener('mouseup', () => mousedown = false);
+export let customvideo = new customVideo();
 
 //----------------------------------------------------------------------------------//
