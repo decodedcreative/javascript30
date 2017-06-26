@@ -9,7 +9,9 @@
 
 //import { mouseshadow } from "./modules/mouse-shadow.js";
 
-import { webcam } from "./modules/webcam.js";
+//import { webcam } from "./modules/webcam.js";
+
+import { speechrecognition } from "./modules/speech-recognition.js";
 
 
 
