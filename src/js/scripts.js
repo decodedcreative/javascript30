@@ -11,7 +11,8 @@
 
 //import { webcam } from "./modules/webcam.js";
 
-import { speechrecognition } from "./modules/speech-recognition.js";
+//import { speechrecognition } from "./modules/speech-recognition.js";
 
+import { geolocation } from "./modules/geolocation.js";
 
 
