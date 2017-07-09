@@ -13,6 +13,23 @@
 
 //import { speechrecognition } from "./modules/speech-recognition.js";
 
-import { geolocation } from "./modules/geolocation.js";
+//import { geolocation } from "./modules/geolocation.js";
 
 
+//import { follow } from "./modules/follow-along.js";
+
+//import { speech } from "./modules/speech-synthesis.js";
+
+//import { sticky } from "./modules/sticky-nav.js";
+
+//import { eventcapture } from "./modules/event-capture.js";
+
+//import { followdropdown } from "./modules/follow-dropdown.js";
+
+//import { dragscroll } from "./modules/drag-scroll.js";
+
+//import { dragscroll } from "./modules/video-speed.js";
+
+//import { countdown } from "./modules/count-down.js";
+
+import { whackmole } from "./modules/whack-mole.js";
